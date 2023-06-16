@@ -1,2 +1,40 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h2>User Info</h2>
+      <div id="error_explanation">
+        <% if @edit_user.errors.any? %>
+          <h3><%= @edit_user.errors.count %>error prohibited this obj from being saved:</h3>
+          <ul>
+            <% @edit_user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
+      <%= form_with model: @edit_user, url: user_path(@edit_user.id), method: :patch do |f| %>
+        <div class="form-group">
+          <label for "user_name">Name</label>
+          <%= f.text_field :name, class:"form-control user_name"%>
+        </div>
+
+        <div class="form-group">
+          <label for "user_image">Image</label>
+          <%= f.file_field :profile_image, placeholder: "ファイルを選択", accept: "image/*", class: "form-container-file user_image", id: "user_profile_image" %>
+        </div>
+
+        <div class="form-group">
+          <label for "user_introduction">Introduction</label>
+          <%= f.text_area :introduction, class:"form-control user_introduction"%>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "Update User", class:"btn btn-secondary" %>
+        </div>
+      <% end %>
+
+
+    </div>
+  </div>
+</div>
